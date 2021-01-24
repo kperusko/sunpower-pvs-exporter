@@ -207,7 +207,7 @@ class SunPowerPVSupervisorCollector(object):
             dict(key="vln_3phavg_v", metric=ac_voltage),
 
             dict(key="i_mppt1_a", metric=dc_current),
-            dict(key="p_mpptsum_kw", metric=dc_power, op=self.from_kilo),
+            dict(key="p_mppt1_kw", metric=dc_power, op=self.from_kilo),
             dict(key="v_mppt1_v", metric=dc_voltage),
 
             dict(key="freq_hz", metric=frequency),
