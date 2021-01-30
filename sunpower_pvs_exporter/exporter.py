@@ -92,37 +92,11 @@ class SunPowerPVSupervisorCollector(object):
                 logging.debug(response.text)
 
     @property
-    def communication_interfaces(self):
-        """
-        Return the list of communication interfaces' network status
-        """
-        return self._get(command="Get_Comm").get("networkstatus", {})
-
-    @property
     def devices(self):
         """
         Return the list of devices
         """
         return self._get(command="DeviceList").get("devices", [])
-
-    @property
-    def grid_profile(self):
-        """
-        Return the status of the Grid Profile setting
-        """
-        return self._get(command="GridProfileGet")
-
-    def connect(self):
-        """
-        Start a configuration session with the PVS
-        """
-        return self._get(command="Start").get("supervisor", {})
-
-    def disconnect(self):
-        """
-        Stop the configuration session with the PVS
-        """
-        return self._get(command="Stop")
 
     @staticmethod
     def from_kilo(value, base=1000):
@@ -347,41 +321,6 @@ class SunPowerPVSupervisorCollector(object):
             dict(key="dl_uptime", metric=uptime),
         ]
 
-    def info_metrics(self):
-        """
-        Return a list of information tags for the PV Supervisor
-        """
-        network_status = self.communication_interfaces
-        interface_info = InfoMetricFamily(
-            name="sunpower_pvs_communication_interface",
-            documentation="Communications Interface Information",
-        )
-
-        for comm in network_status.get("interfaces", []):
-            value = dict(interface=comm["interface"],
-                         internet=comm["internet"],
-                         sms=comm["sms"],
-                        )
-            interface_info.add_metric(labels=[], value=value)
-
-        grid_profile = self.grid_profile
-        value = None
-        if grid_profile:
-            value = dict(id=grid_profile["active_id"],
-                         name=grid_profile["active_name"],
-                         percent=str(grid_profile["percent"]),
-                         status=grid_profile["status"],
-                        )
-        grid_info = InfoMetricFamily(
-            name="sunpower_pvs_grid_profile",
-            documentation="Grid Profile",
-            value=value,
-        )
-
-        return [dict(key="interface_info", metric=interface_info),
-                dict(key="grid_profile", metric=grid_info)
-               ]
-
     # pylint: disable=R0201
     def device_state_metrics(self):
         """
@@ -401,9 +340,6 @@ class SunPowerPVSupervisorCollector(object):
         """
         Query the SunPower PV Supervisor on every exposition
         """
-        self.connect()
-
-        info_metrics = self.info_metrics()
         supervisor_metrics = self.supervisor_metrics()
         pm_metrics = self.power_meter_metrics()
         inverter_metrics = self.inverter_metrics()
@@ -500,12 +436,8 @@ class SunPowerPVSupervisorCollector(object):
                                   timestamp=timestamp,
                                  )
 
-        for m in info_metrics + \
-                 supervisor_metrics + \
+        for m in supervisor_metrics + \
                  pm_metrics + \
                  inverter_metrics + \
                  device_state_metrics:
             yield m["metric"]
-
-        # Disconnect
-        self.disconnect()
