@@ -123,3 +123,4 @@ dmypy.json
 .pyre/
 
 tests/results.xml
+.DS_Store

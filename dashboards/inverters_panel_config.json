@@ -15,24 +15,37 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 3,
-  "iteration": 1558829892669,
+  "id": 9,
+  "iteration": 1614740959230,
   "links": [],
   "panels": [
     {
       "aliasColors": {},
-      "bars": true,
+      "bars": false,
       "cacheTimeout": null,
       "dashLength": 10,
       "dashes": false,
+      "datasource": null,
       "description": "",
-      "fill": 5,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "thresholds": {
+            "mode": "absolute",
+            "steps": []
+          }
+        },
+        "overrides": []
+      },
+      "fill": 7,
+      "fillGradient": 0,
       "gridPos": {
         "h": 10,
         "w": 24,
         "x": 0,
         "y": 0
       },
+      "hiddenSeries": false,
       "hideTimeOverride": true,
       "id": 5,
       "legend": {
@@ -43,15 +56,20 @@
         "min": false,
         "rightSide": true,
         "show": true,
+        "sort": "current",
+        "sortDesc": true,
         "total": false,
         "values": true
       },
       "lines": true,
-      "linewidth": 1,
+      "linewidth": 2,
       "links": [],
       "nullPointMode": "null",
+      "options": {
+        "alertThreshold": false
+      },
       "percentage": false,
-      "pluginVersion": "6.1.6",
+      "pluginVersion": "7.4.0",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -66,7 +84,7 @@
           "displayAliasType": "Warning / Critical",
           "displayType": "Regular",
           "displayValueWithAlias": "Never",
-          "expr": "label_replace(sunpower_pvs_inverter_ac_power_watts{job=\"$job\"}, \"device_number\", \"$1\", \"device_id\", \"^E[A-Za-z0-9]{9}(.*)\")",
+          "expr": "label_replace(sunpower_pvs_inverter_ac_power_watts, \"device_number\", \"$1\", \"device_id\", \"^E[A-Za-z0-9]{9}(.*)\")",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -109,6 +127,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:9629",
           "format": "watt",
           "label": null,
           "logBase": 1,
@@ -117,6 +136,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:9630",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -135,13 +155,22 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fill": 1,
+      "fillGradient": 0,
       "gridPos": {
         "h": 11,
         "w": 12,
         "x": 0,
         "y": 10
       },
+      "hiddenSeries": false,
       "id": 2,
       "legend": {
         "alignAsTable": false,
@@ -158,7 +187,11 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
+      "pluginVersion": "7.4.0",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -168,8 +201,9 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "label_replace(sunpower_pvs_inverter_heatsink_temperature_celcius{job=\"$job\"}, \"device_number\", \"$1\", \"device_id\", \"E[0-9]{9}(.*)\")",
+          "expr": "label_replace(sunpower_pvs_inverter_heatsink_temperature_celsius, \"device_number\", \"$1\", \"device_id\", \"E[0-9]{9}(.*)\")",
           "format": "time_series",
+          "interval": "",
           "intervalFactor": 1,
           "legendFormat": "{{device_number}}",
           "refId": "A"
@@ -195,6 +229,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:74",
           "decimals": null,
           "format": "short",
           "label": "Degrees (°C)",
@@ -204,6 +239,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:75",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -223,14 +259,23 @@
       "cacheTimeout": null,
       "dashLength": 10,
       "dashes": false,
+      "datasource": null,
       "description": "Solar PV Panel Inverters - DC to AC Power  Ratio",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fill": 0,
+      "fillGradient": 0,
       "gridPos": {
         "h": 11,
         "w": 12,
         "x": 12,
         "y": 10
       },
+      "hiddenSeries": false,
       "hideTimeOverride": true,
       "id": 6,
       "legend": {
@@ -247,9 +292,12 @@
       "lines": true,
       "linewidth": 1,
       "links": [],
-      "nullPointMode": "null",
+      "nullPointMode": "connected",
+      "options": {
+        "alertThreshold": false
+      },
       "percentage": false,
-      "pluginVersion": "6.1.6",
+      "pluginVersion": "7.4.0",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -264,9 +312,11 @@
           "displayAliasType": "Warning / Critical",
           "displayType": "Regular",
           "displayValueWithAlias": "Never",
-          "expr": "clamp_min(holt_winters(sunpower_pvs_inverter_ac_power_watts{job=\"$job\"}[1h], 0.1, 0.1) / holt_winters(sunpower_pvs_inverter_dc_power_watts[1h], 0.1, 0.1), 0)",
+          "expr": "clamp_min(holt_winters(sunpower_pvs_inverter_ac_power_watts[1h], 0.1, 0.1) / holt_winters(sunpower_pvs_inverter_dc_power_watts[1h], 0.1, 0.1), 0)",
           "format": "time_series",
+          "hide": false,
           "instant": false,
+          "interval": "",
           "intervalFactor": 1,
           "legendFormat": "{{ device_id }}",
           "refId": "B",
@@ -295,15 +345,17 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:2735",
           "decimals": 0,
           "format": "percentunit",
-          "label": null,
+          "label": "",
           "logBase": 1,
-          "max": null,
-          "min": null,
+          "max": "1",
+          "min": "0",
           "show": true
         },
         {
+          "$$hashKey": "object:2736",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -318,7 +370,8 @@
       }
     }
   ],
-  "schemaVersion": 18,
+  "refresh": false,
+  "schemaVersion": 27,
   "style": "dark",
   "tags": [],
   "templating": {
@@ -326,11 +379,13 @@
       {
         "allValue": null,
         "current": {
-          "text": "sunpower_pvs",
-          "value": "sunpower_pvs"
+          "text": "sunpower_pvs_exporter",
+          "value": "sunpower_pvs_exporter"
         },
         "datasource": "Prometheus",
         "definition": "label_values(sunpower_pvs_device_state,job)",
+        "description": null,
+        "error": null,
         "hide": 0,
         "includeAll": false,
         "label": "job",
@@ -339,13 +394,8 @@
         "options": [
           {
             "selected": true,
-            "text": "sunpower_pvs",
-            "value": "sunpower_pvs"
-          },
-          {
-            "selected": false,
-            "text": "sunpower_pvs_beta",
-            "value": "sunpower_pvs_beta"
+            "text": "sunpower_pvs_exporter",
+            "value": "sunpower_pvs_exporter"
           }
         ],
         "query": "label_values(sunpower_pvs_device_state,job)",
@@ -392,6 +442,6 @@
   },
   "timezone": "",
   "title": "Inverters",
-  "uid": "qXt7gNiRk",
-  "version": 12
+  "uid": "panels",
+  "version": 6
 }
