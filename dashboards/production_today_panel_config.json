@@ -95,11 +95,7 @@
       "options": {
         "alertThreshold": false,
         "legend": {
-          "calcs": [
-            "lastNotNull",
-            "max",
-            "min"
-          ],
+          "calcs": ["lastNotNull", "max", "min"],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -121,7 +117,8 @@
           "displayAliasType": "Warning / Critical",
           "displayType": "Regular",
           "displayValueWithAlias": "Never",
-          "expr": "sum(sunpower_pvs_power_meter_average_real_power_watts{mode=\"production\",job=\"$job\"})",
+          "editorMode": "code",
+          "expr": "sum(sunpower_pvs_power_meter_average_real_power_watts{mode=\"production\"})",
           "format": "time_series",
           "instant": false,
           "intervalFactor": 1,
@@ -135,7 +132,8 @@
             "type": "prometheus",
             "uid": "EEYb49gRz"
           },
-          "expr": "sum(sunpower_pvs_power_meter_average_real_power_watts{mode=\"production\",job=\"$job\"})\n+\nsum(sunpower_pvs_power_meter_average_real_power_watts{mode=\"consumption\",job=\"$job\"})",
+          "editorMode": "code",
+          "expr": "sum(sunpower_pvs_power_meter_average_real_power_watts{mode=\"production\"})\n+\nsum(sunpower_pvs_power_meter_average_real_power_watts{mode=\"consumption\"})",
           "format": "time_series",
           "instant": false,
           "interval": "",
@@ -187,9 +185,7 @@
         "minVizWidth": 75,
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": [
-            "last"
-          ],
+          "calcs": ["last"],
           "fields": "",
           "values": false
         },
@@ -209,9 +205,11 @@
           "displayAliasType": "Warning / Critical",
           "displayType": "Regular",
           "displayValueWithAlias": "Never",
-          "expr": "sum(sunpower_pvs_power_meter_average_real_power_watts{mode=\"production\",job=\"$job\"})",
+          "editorMode": "code",
+          "expr": "sum(sunpower_pvs_power_meter_average_real_power_watts{mode=\"production\"})",
           "format": "time_series",
           "intervalFactor": 1,
+          "range": true,
           "refId": "A",
           "units": "none",
           "valueHandler": "Number Threshold"
@@ -265,9 +263,7 @@
         "minVizWidth": 75,
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": [
-            "last"
-          ],
+          "calcs": ["last"],
           "fields": "",
           "values": false
         },
@@ -340,9 +336,7 @@
         "minVizWidth": 75,
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": [
-            "last"
-          ],
+          "calcs": ["last"],
           "fields": "",
           "values": false
         },
@@ -362,9 +356,11 @@
           "displayAliasType": "Warning / Critical",
           "displayType": "Regular",
           "displayValueWithAlias": "Never",
-          "expr": "sunpower_pvs_power_meter_average_real_power_watts{mode=\"consumption\",job=\"$job\"}",
+          "editorMode": "code",
+          "expr": "sunpower_pvs_power_meter_average_real_power_watts{mode=\"consumption\"}",
           "format": "time_series",
           "intervalFactor": 1,
+          "range": true,
           "refId": "A",
           "units": "none",
           "valueHandler": "Number Threshold"
@@ -423,9 +419,7 @@
         "minVizWidth": 75,
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": [
-            "range"
-          ],
+          "calcs": ["range"],
           "fields": "",
           "values": false
         },
@@ -495,9 +489,7 @@
         "minVizWidth": 75,
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": [
-            "diff"
-          ],
+          "calcs": ["diff"],
           "fields": "",
           "values": false
         },
@@ -574,9 +566,7 @@
         "minVizWidth": 75,
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": [
-            "diff"
-          ],
+          "calcs": ["diff"],
           "fields": "",
           "values": false
         },
@@ -648,9 +638,7 @@
         "minVizWidth": 75,
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": [
-            "last"
-          ],
+          "calcs": ["last"],
           "fields": "",
           "values": false
         },
@@ -673,10 +661,12 @@
           "displayAliasType": "Always",
           "displayType": "Regular",
           "displayValueWithAlias": "When Alias Displayed",
-          "expr": "sum(sunpower_pvs_device_state{device_type=\"Inverter\",job=\"$job\"})",
+          "editorMode": "code",
+          "expr": "sum(sunpower_pvs_device_state{device_type=\"Inverter\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Inverter",
+          "range": true,
           "refId": "A",
           "units": "none",
           "valueDisplayRegex": "",
@@ -694,26 +684,7 @@
   "schemaVersion": 40,
   "tags": [],
   "templating": {
-    "list": [
-      {
-        "current": {
-          "text": "sunpower-pvs-exporter",
-          "value": "sunpower-pvs-exporter"
-        },
-        "includeAll": false,
-        "label": "job",
-        "name": "job",
-        "options": [
-          {
-            "selected": true,
-            "text": "sunpower-pvs-exporter",
-            "value": "sunpower-pvs-exporter"
-          }
-        ],
-        "query": "sunpower-pvs-exporter",
-        "type": "custom"
-      }
-    ]
+    "list": []
   },
   "time": {
     "from": "now/d",
@@ -723,6 +694,6 @@
   "timezone": "browser",
   "title": "Production summary",
   "uid": "production",
-  "version": 75,
+  "version": 84,
   "weekStart": ""
 }

@@ -21,9 +21,7 @@
         "enable": true,
         "filter": {
           "exclude": false,
-          "ids": [
-            5
-          ]
+          "ids": [5]
         },
         "hide": true,
         "iconColor": "gray",
@@ -118,11 +116,7 @@
       "options": {
         "alertThreshold": false,
         "legend": {
-          "calcs": [
-            "mean",
-            "lastNotNull",
-            "max"
-          ],
+          "calcs": ["mean", "lastNotNull", "max"],
           "displayMode": "table",
           "placement": "right",
           "showLegend": true
@@ -247,10 +241,12 @@
             "type": "prometheus",
             "uid": "EEYb49gRz"
           },
-          "expr": "label_replace(sunpower_pvs_inverter_heatsink_temperature_celcius, \"device_number\", \"$1\", \"device_id\", \"E[0-9]{9}(.*)\")",
+          "editorMode": "code",
+          "expr": "label_replace(sunpower_pvs_inverter_heatsink_temperature_celsius, \"device_number\", \"$1\", \"device_id\", \"E[0-9]{9}(.*)\")",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{device_number}}",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -332,9 +328,7 @@
       "options": {
         "alertThreshold": false,
         "legend": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "displayMode": "table",
           "placement": "right",
           "showLegend": true
@@ -388,6 +382,6 @@
   "timezone": "",
   "title": "Inverters",
   "uid": "panels",
-  "version": 6,
+  "version": 9,
   "weekStart": ""
 }
